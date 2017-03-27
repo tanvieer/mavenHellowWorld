@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-init-method="init" default-destroy-method="destroy"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean 
+		id="patient" 
+		class="com.tanvir.spring.mavenHellowWorld.Patient"
+		scope="prototype" 
+		init-method="onCreate" 
+		destroy-method="onDestroy"
+		factory-method="getInstance" 
+		p:address-ref="address"
+		p:nationalId="4321"
+		c:id="6"
+		c:_1="name set by C:namespace"
+	>
+	<!-- <property name="nationalId" value="1234"></property> <constructor-arg 
+		value="1" index="0" name="id"></constructor-arg> <constructor-arg value="Tanvir" 
+		index="1" name="name"></constructor-arg> <property name="address" ref="address"></property> -->
+	</bean>
+	<bean 
+		id="address" 
+		class="com.tanvir.spring.mavenHellowWorld.Address"
+		c:street="road 12, NIKUNJA-2"
+		c:postCode="1223"
+	>
+	</bean>
+
+	<bean id="address2" class="com.tanvir.spring.mavenHellowWorld.Address"
+		p:street="Green Road" p:postCode="1202">
+	</bean>
+
+	<bean id="patient2"
+		class="com.tanvir.spring.mavenHellowWorld.Patient" scope="singleton"
+		init-method="onCreate" destroy-method="onDestroy"
+		factory-method="createPatient" factory-bean="patientfactory">
+		<constructor-arg value="1" index="0" name="id"></constructor-arg>
+		<constructor-arg value="Patient2" index="1" name="name"></constructor-arg>
+		<property name="nationalId" value="1234"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="patientfactory" class="com.tanvir.spring.mavenHellowWorld.PatientFactory">
+	</bean>
+</beans>
